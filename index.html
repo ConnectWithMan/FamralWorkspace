@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://www.famral.com/favicon.png">
+    <title>Famral Workspace – Productivity Apps</title>
+    <meta name="description"
+        content="Famral Workspace is a powerful productivity suite for teams and individuals. Create, collaborate, and achieve more with our integrated office tools.">
+    <meta name="keywords"
+        content="Famral Workspace, productivity suite, online office, document editor, spreadsheet, presentation, team collaboration, Google Workspace alternative, Zoho Workplace alternative">
+    <meta name="author" content="Famral">
+    <meta name="robots" content="index, follow">
+
+    <link rel="icon" type="image/png" href="https://www.famral.com/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --bg: #f8fafc;
+            --text: #334155;
+            --card-bg: #ffffff;
+            --dark: #0f172a;
+            --border-radius: 10px;
+            --transition: all 0.2s ease-in-out;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* ---------- NAVBAR ---------- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 30px;
+            margin-right: 8px;
+            border-radius: 6px;
+        }
+
+        .nav-links-wrapper {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .nav-links-wrapper a {
+            text-decoration: none;
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .nav-links-wrapper a:hover {
+            background: #f1f5f9;
+            color: var(--accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 800px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links-wrapper {
+                display: none;
+                position: absolute;
+                right: 1.5rem;
+                top: 65px;
+                flex-direction: column;
+                background: #fff;
+                border-radius: 10px;
+                box-shadow: var(--shadow-md);
+                overflow: hidden;
+            }
+
+            .nav-links-wrapper.show {
+                display: flex;
+            }
+
+            .nav-links-wrapper a {
+                padding: 0.9rem 1.3rem;
+                border-bottom: 1px solid #f1f5f9;
+            }
+
+            .nav-links-wrapper a:last-child {
+                border-bottom: none;
+            }
+        }
+
+        /* ---------- HERO ---------- */
+        .hero {
+            padding: 4rem 1.5rem;
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        }
+
+        .hero-content {
+            max-width: 500px;
+        }
+
+        .hero-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            background: var(--primary);
+            color: #fff;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            background: #020617;
+        }
+
+        .hero-image {
+            max-width: 360px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ---------- SECTIONS ---------- */
+        .section-wrapper {
+            padding: 3rem 1.5rem;
+            text-align: center;
+            background: #fff;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            color: var(--dark);
+        }
+
+        /* ---------- FEATURES ---------- */
+        .features {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.6rem 1.2rem;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid #e5e7eb;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            will-change: transform;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent);
+        }
+
+        .feature-img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .feature-desc {
+            font-size: 1rem;
+            color: #64748b;
+            line-height: 1.6;
+            max-width: 260px;
+            margin: auto;
+        }
+
+        /* ---------- FOOTER ---------- */
+        .footer {
+            background: #1e293b;
+            color: #cbd5e1;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="https://workspace.famral.com/" class="nav-logo">
+                <img src="https://www.famral.com/favicon.png" alt="Famral">
+                Workspace Apps
+            </a>
+            <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+            <div class="nav-links-wrapper">
+                <a href="/">Home</a>
+                <a href="https://www.famral.com/pdf/pdf-editor">PDF Editor</a>
+                <a href="https://www.famral.com/slides">Presentation Maker</a>
+                <a href="https://www.famral.com/notes">Notes App</a>
+                <a href="https://www.famral.com/tasks">To-Dos App</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-title">Your Unified Workspace for Work & Life</div>
+        </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section class="section-wrapper">
+        <div class="section-title">Powerful Productivity Suite</div>
+        <div class="features">
+            <a href="https://www.famral.com/docs" class="feature-card">
+                <img src="https://www.famral.com/image/docs.png" class="feature-img">
+                <div class="feature-title">Famral Docs</div>
+                <div class="feature-desc">Create and edit professional documents.</div>
+            </a>
+
+            <a href="https://www.famral.com/sheets" class="feature-card">
+                <img src="https://www.famral.com/image/sheets.png" class="feature-img">
+                <div class="feature-title">Famral Sheets</div>
+                <div class="feature-desc">Analyze data with powerful spreadsheets.</div>
+            </a>
+
+            <a href="https://www.famral.com/slides" class="feature-card">
+                <img src="https://www.famral.com/image/slides.png" class="feature-img">
+                <div class="feature-title">Famral Slides</div>
+                <div class="feature-desc">Design stunning presentations.</div>
+            </a>
+
+            <a href="https://www.famral.com/pdf-editor" class="feature-card">
+                <img src="https://www.famral.com/image/pdf-editor.png" class="feature-img">
+                <div class="feature-title">Famral PDF Editor</div>
+                <div class="feature-desc">View, edit and convert PDFs instantly.</div>
+            </a>
+
+            <a href="https://www.famral.com/notes" class="feature-card">
+                <img src="https://www.famral.com/image/notes.png" class="feature-img">
+                <div class="feature-title">Famral Notes</div>
+                <div class="feature-desc">Capture and organize your thoughts.</div>
+            </a>
+
+            <a href="https://www.famral.com/tasks" class="feature-card">
+                <img src="https://www.famral.com/image/tasks.png" class="feature-img">
+                <div class="feature-title">Famral Tasks</div>
+                <div class="feature-desc">Manage your tasks and To-Do List efficiently.</div>
+            </a>
+
+            <a href="https://www.famral.com/whiteboard" class="feature-card">
+                <img src="https://www.famral.com/image/whiteboard.png" class="feature-img">
+                <div class="feature-title">Famral Whiteboard</div>
+                <div class="feature-desc">Brainstorm ideas visually on a digital canvas.</div>
+            </a>
+
+            <a href="https://www.famral.com/designer" class="feature-card">
+                <img src="https://www.famral.com/image/designer.png" class="feature-img">
+                <div class="feature-title">Famral Designer</div>
+                <div class="feature-desc">Design graphics on a digital canvas.</div>
+            </a>
+            
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        © 2026 Famral. All rights reserved.
+    </footer>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links-wrapper');
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target)) {
+                navLinks.classList.remove('show');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
