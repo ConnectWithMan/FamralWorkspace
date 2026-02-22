@@ -17,6 +17,119 @@
     <link rel="icon" type="image/png" href="https://www.famral.com/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "@type": "Organization",
+      "@id": "https://www.famral.com/#organization",
+      "name": "Famral",
+      "url": "https://www.famral.com/",
+      "logo": "https://www.famral.com/favicon.png",
+      "sameAs": [
+        "https://workspace.famral.com/"
+      ]
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://workspace.famral.com/#website",
+      "url": "https://workspace.famral.com/",
+      "name": "Famral Workspace",
+      "publisher": {
+        "@id": "https://www.famral.com/#organization"
+      }
+    },
+
+    {
+      "@type": "SoftwareApplication",
+      "name": "Famral Workspace",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Famral Workspace is a powerful productivity suite for teams and individuals to create, collaborate and manage work using integrated office tools.",
+      "url": "https://workspace.famral.com/",
+      "image": "https://www.famral.com/favicon.png",
+      "creator": {
+        "@id": "https://www.famral.com/#organization"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+
+    {
+      "@type": "ItemList",
+      "name": "Famral Workspace Applications",
+      "itemListElement": [
+        {
+          "@type": "SoftwareApplication",
+          "position": 1,
+          "name": "Famral Docs",
+          "url": "https://www.famral.com/docs",
+          "applicationCategory": "DocumentEditor"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "position": 2,
+          "name": "Famral Sheets",
+          "url": "https://www.famral.com/sheets",
+          "applicationCategory": "Spreadsheet"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "position": 3,
+          "name": "Famral Slides",
+          "url": "https://www.famral.com/slides",
+          "applicationCategory": "PresentationApplication"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "position": 4,
+          "name": "Famral PDF Editor",
+          "url": "https://www.famral.com/pdf/pdf-editor",
+          "applicationCategory": "PDFApplication"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "position": 5,
+          "name": "Famral Notes",
+          "url": "https://www.famral.com/notes",
+          "applicationCategory": "NoteTakingApplication"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "position": 6,
+          "name": "Famral Tasks",
+          "url": "https://www.famral.com/tasks",
+          "applicationCategory": "TaskManagementApplication"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "position": 7,
+          "name": "Famral Whiteboard",
+          "url": "https://www.famral.com/whiteboard",
+          "applicationCategory": "WhiteboardApplication"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "position": 8,
+          "name": "Famral Designer",
+          "url": "https://www.famral.com/designer",
+          "applicationCategory": "DesignApplication"
+        }
+      ]
+    }
+
+  ]
+}
+</script>
+
+
+    
     <style>
         :root {
             --primary: #0f172a;
@@ -308,7 +421,7 @@
                 <div class="feature-desc">Design stunning presentations.</div>
             </a>
 
-            <a href="https://www.famral.com/pdf-editor" class="feature-card">
+            <a href="https://www.famral.com/pdf/pdf-editor" class="feature-card">
                 <img src="https://www.famral.com/image/pdf-editor.png" class="feature-img">
                 <div class="feature-title">Famral PDF Editor</div>
                 <div class="feature-desc">View, edit and convert PDFs instantly.</div>
