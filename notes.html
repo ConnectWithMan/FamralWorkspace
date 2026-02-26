@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famral Notes</title>
+    <link rel="stylesheet" href="notes-styles.css">
+    <link rel="icon" href="https://www.famral.com/image/notes.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="app-brand"><img src="https://www.famral.com/image/notes.png" alt="Famral Notes" style="height: 24px;"> Famral Notes</div>
+                <button id="add-note-btn"><i class="fas fa-plus"></i> Add Page</button>
+                <input type="text" id="search-notes" placeholder="Search notes...">
+            </div>
+            <div id="notes-list" class="notes-list"></div>
+        </aside>
+        <main class="editor-container">
+            <input type="text" id="note-title" placeholder="Untitled Page" autocomplete="off">
+            <div class="toolbar">
+                <select id="select-style" title="Text Style">
+                    <option value="div">Normal</option>
+                    <option value="H1">Heading 1</option>
+                    <option value="H2">Heading 2</option>
+                    <option value="H3">Heading 3</option>
+                </select>
+                <select id="select-font" title="Font Family">
+                    <option value="Segoe UI">Segoe UI</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Courier New">Courier New</option>
+                </select>
+                <select id="select-size" title="Font Size">
+                    <option value="3">12pt</option>
+                    <option value="1">8pt</option>
+                    <option value="2">10pt</option>
+                    <option value="4">14pt</option>
+                    <option value="5">18pt</option>
+                    <option value="6">24pt</option>
+                    <option value="7">36pt</option>
+                </select>
+                <div class="separator"></div>
+                <button id="btn-bold" title="Bold"><i class="fas fa-bold"></i></button>
+                <button id="btn-italic" title="Italic"><i class="fas fa-italic"></i></button>
+                <button id="btn-underline" title="Underline"><i class="fas fa-underline"></i></button>
+                <button id="btn-strikethrough" title="Strikethrough"><i class="fas fa-strikethrough"></i></button>
+                <div class="separator"></div>
+                <div class="color-wrapper" title="Text Color">
+                    <i class="fas fa-font" style="color: #ffcc00;"></i>
+                    <input type="color" id="input-color" value="#000000">
+                </div>
+                <div class="color-wrapper" title="Highlight Color">
+                    <i class="fas fa-highlighter" style="background: linear-gradient(to top, yellow 50%, transparent 50%);"></i>
+                    <input type="color" id="input-highlight" value="#ffffff">
+                </div>
+                <div class="separator"></div>
+                <button id="btn-ul" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                <button id="btn-ol" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                <div class="separator"></div>
+                <button id="btn-left" title="Align Left"><i class="fas fa-align-left"></i></button>
+                <button id="btn-center" title="Align Center"><i class="fas fa-align-center"></i></button>
+                <button id="btn-right" title="Align Right"><i class="fas fa-align-right"></i></button>
+                <div class="separator"></div>
+                <button id="btn-outdent" title="Outdent"><i class="fas fa-outdent"></i></button>
+                <button id="btn-indent" title="Indent"><i class="fas fa-indent"></i></button>
+                <div class="separator"></div>
+                <button id="btn-link" title="Insert Link"><i class="fas fa-link"></i></button>
+                <button id="btn-unlink" title="Remove Link"><i class="fas fa-unlink"></i></button>
+                <button id="btn-image" title="Insert Image"><i class="far fa-image"></i></button>
+                <input type="file" id="image-input" accept="image/*" style="display: none;">
+            </div>
+            <div id="note-body" class="note-body" contenteditable="true" placeholder="Start typing..."></div>
+            <div id="resize-handle"></div>
+        </main>
+    </div>
+    <script src="notes-app.js"></script>
+</body>
+
+</html>
