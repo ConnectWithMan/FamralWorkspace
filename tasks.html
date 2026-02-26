@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famral Tasks</title>
+    <link rel="icon" href="https://www.famral.com/image/tasks.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --bg-color: #eef2f5;
+            --text-color: #333;
+            --danger-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            padding: 2rem;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 3rem;
+            overflow-y: auto;
+            background-color: var(--bg-color);
+        }
+
+        h1 { text-align: left; margin-bottom: 2rem; color: var(--primary-color); font-weight: 700; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+
+        .input-group { display: none; gap: 10px; margin-bottom: 30px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 0;
+            font-size: 16px;
+            font-family: inherit;
+            background: transparent;
+        }
+
+        input:focus { outline: none; }
+
+        input[type="date"] {
+            padding: 10px;
+            border: none;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-family: inherit;
+            color: #666;
+            cursor: pointer;
+        }
+
+        button#add-btn {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+            font-size: 1.1rem;
+        }
+
+        button#add-btn:hover { background-color: #357abd; }
+
+        button#cancel-btn {
+            padding: 10px 20px;
+            background-color: #e0e0e0;
+            color: #555;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+            font-size: 1.1rem;
+        }
+
+        button#cancel-btn:hover { background-color: #d0d0d0; }
+
+        ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+
+        li {
+            background: #fff;
+            border: 1px solid #f0f0f0;
+            border-radius: 10px;
+            padding: 15px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            cursor: grab;
+        }
+
+        li:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+
+        li.completed .task-text {
+            text-decoration: line-through;
+            color: #bbb;
+        }
+
+        li.dragging {
+            opacity: 0.5;
+            border: 2px dashed var(--primary-color);
+        }
+        
+        .task-content { display: flex; flex-direction: column; flex-grow: 1; margin-left: 10px; }
+        .task-date { font-size: 0.75rem; color: #888; margin-top: 4px; display: flex; align-items: center; gap: 5px; }
+        .task-date.overdue { color: var(--danger-color); font-weight: bold; }
+
+        .nav-btn { 
+            background: transparent; 
+            border: none; 
+            cursor: pointer; 
+            color: #555; 
+            font-weight: 500; 
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .nav-btn:hover { background-color: #f4f7f6; color: var(--primary-color); }
+        .nav-btn.active { background-color: #eef2f5; color: var(--primary-color); font-weight: 600; }
+        
+        .nav-btn.primary-action { background-color: var(--primary-color); color: white; margin-bottom: 20px; justify-content: center; box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3); }
+        .nav-btn.primary-action:hover { background-color: #357abd; }
+
+        .actions button {
+            margin-left: 8px;
+            padding: 8px;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .check-btn { background-color: #e8f8f0; color: var(--success-color); }
+        .check-btn:hover { background-color: var(--success-color); color: white; }
+        
+        .delete-btn { background-color: #fce8e6; color: var(--danger-color); }
+        .delete-btn:hover { background-color: var(--danger-color); color: white; }
+        
+        .edit-btn { background-color: #fff4e6; color: #f39c12; }
+        .edit-btn:hover { background-color: #f39c12; color: white; }
+        
+        .star-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #e0e0e0; padding: 5px; margin-right: 5px; transition: color 0.2s; }
+        .star-btn.starred { color: #f1c40f; }
+        .star-btn:hover { color: #f1c40f; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #aaa; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="sidebar">
+        <h1><img src="https://www.famral.com/image/tasks.png" alt="Logo" style="width: 32px; height: 32px;"> Famral Tasks</h1>
+        <button class="nav-btn primary-action" onclick="focusInput()">New Task</button>
+        <button class="nav-btn active" onclick="setFilter('all')"><i class="ri-stack-line"></i> All Tasks</button>
+        <button class="nav-btn" onclick="setFilter('important')"><i class="ri-star-line"></i> Important</button>
+        <button class="nav-btn" onclick="setFilter('completed')"><i class="ri-checkbox-circle-line"></i> Completed</button>
+    </div>
+    <div class="main-content">
+        <div class="input-group">
+            <input type="text" id="task-input" placeholder="Add a new task...">
+            <input type="date" id="date-input">
+            <button id="add-btn"><i class="ri-add-line"></i></button>
+            <button id="cancel-btn"><i class="ri-close-line"></i></button>
+        </div>
+        <ul id="task-list"></ul>
+    </div>
+</div>
+
+<script>
+    const taskInput = document.getElementById('task-input');
+    const dateInput = document.getElementById('date-input');
+    const addBtn = document.getElementById('add-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const taskList = document.getElementById('task-list');
+    const filterBtns = document.querySelectorAll('.nav-btn:not(.primary-action)');
+    const inputGroup = document.querySelector('.input-group');
+
+    // Load tasks from LocalStorage
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let currentFilter = 'all';
+    let editingId = null;
+    let draggedTaskId = null;
+
+    // Migration for old tasks without IDs
+    tasks = tasks.map(t => ({
+        ...t, 
+        id: t.id || Date.now() + Math.random(),
+        dueDate: t.dueDate || '',
+        important: t.important || false
+    }));
+
+    function saveTasks() {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function renderTasks() {
+        taskList.innerHTML = '';
+        
+        const filteredTasks = tasks.filter(task => {
+            if (currentFilter === 'completed') return task.completed;
+            if (currentFilter === 'important') return task.important;
+            return true;
+        });
+
+        filteredTasks.forEach((task) => {
+            const li = document.createElement('li');
+            if (task.completed) li.classList.add('completed');
+            
+            li.setAttribute('draggable', 'true');
+            li.addEventListener('dragstart', () => {
+                draggedTaskId = task.id;
+                li.classList.add('dragging');
+            });
+            li.addEventListener('dragend', () => {
+                li.classList.remove('dragging');
+                draggedTaskId = null;
+            });
+            li.addEventListener('dragover', (e) => e.preventDefault());
+            li.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (draggedTaskId) {
+                    moveTask(draggedTaskId, task.id);
+                }
+            });
+
+            const isEditing = task.id === editingId;
+            const dateDisplay = task.dueDate ? `<div class="task-date ${isOverdue(task.dueDate) && !task.completed ? 'overdue' : ''}"><i class="ri-calendar-line"></i> ${new Date(task.dueDate).toLocaleDateString()}</div>` : '';
+
+            li.innerHTML = `
+                <button class="star-btn ${task.important ? 'starred' : ''}" onclick="toggleImportant(${task.id})"><i class="${task.important ? 'ri-star-fill' : 'ri-star-line'}"></i></button>
+                
+                ${isEditing 
+                    ? `<input type="text" id="edit-input-${task.id}" value="${task.text}" style="flex-grow:1; padding:8px;">` 
+                    : `<div class="task-content"><span class="task-text">${task.text}</span>${dateDisplay}</div>`
+                }
+
+                <div class="actions">
+                    ${isEditing 
+                        ? `<button class="check-btn" onclick="saveEdit(${task.id})"><i class="ri-save-line"></i></button>`
+                        : `<button class="check-btn" onclick="toggleTask(${task.id})"><i class="ri-check-line"></i></button>
+                           <button class="edit-btn" onclick="startEdit(${task.id})"><i class="ri-pencil-line"></i></button>`
+                    }
+                    <button class="delete-btn" onclick="deleteTask(${task.id})"><i class="ri-delete-bin-line"></i></button>
+                </div>
+            `;
+            taskList.appendChild(li);
+        });
+    }
+
+    function isOverdue(dateString) {
+        if (!dateString) return false;
+        const due = new Date(dateString + 'T23:59:59');
+        return due < new Date();
+    }
+
+    function addTask() {
+        const text = taskInput.value.trim();
+        const date = dateInput.value;
+        if (text) {
+            tasks.push({ 
+                id: Date.now(), 
+                text, 
+                completed: false, 
+                dueDate: date,
+                important: false 
+            });
+            taskInput.value = '';
+            dateInput.value = '';
+            saveTasks();
+            renderTasks();
+            inputGroup.style.display = 'none';
+        }
+    }
+
+    window.toggleTask = (id) => {
+        const task = tasks.find(t => t.id === id);
+        if (task) task.completed = !task.completed;
+        saveTasks();
+        renderTasks();
+    };
+
+    window.deleteTask = (id) => {
+        tasks = tasks.filter(t => t.id !== id);
+        saveTasks();
+        renderTasks();
+    };
+
+    window.toggleImportant = (id) => {
+        const task = tasks.find(t => t.id === id);
+        if (task) task.important = !task.important;
+        saveTasks();
+        renderTasks();
+    };
+
+    window.startEdit = (id) => {
+        editingId = id;
+        renderTasks();
+    };
+
+    window.saveEdit = (id) => {
+        const task = tasks.find(t => t.id === id);
+        const input = document.getElementById(`edit-input-${id}`);
+        if (task && input) {
+            task.text = input.value.trim();
+            editingId = null;
+            saveTasks();
+            renderTasks();
+        }
+    };
+
+    window.setFilter = (filter) => {
+        currentFilter = filter;
+        filterBtns.forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`button[onclick="setFilter('${filter}')"]`).classList.add('active');
+        renderTasks();
+    };
+
+    window.focusInput = () => {
+        inputGroup.style.display = 'flex';
+        taskInput.focus();
+    };
+
+    addBtn.addEventListener('click', addTask);
+    
+    taskInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addTask();
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        taskInput.value = '';
+        dateInput.value = '';
+        inputGroup.style.display = 'none';
+    });
+
+    // Initial Render
+    renderTasks();
+</script>
+
+</body>
+</html>
